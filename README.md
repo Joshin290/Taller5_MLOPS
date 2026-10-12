@@ -57,7 +57,7 @@ Para el desarrollo de este taller, se reutilizó el flujo de experimentación de
 
 En el entorno inicial, la API consultaba directamente el servidor de MLflow para realizar cada inferencia. Sin embargo, para garantizar la autonomía, reducir la latencia (evitando tiempos de descarga por red) y permitir el empaquetado del servicio en un contenedor aislado, se implementó una estrategia de extracción e integración local del artefacto.
 
-### Paso 1.1: Descarga del Modelo desde el Registro de MLflow
+#### Paso 1.1: Descarga del Modelo desde el Registro de MLflow
 Se añadió una nueva celda de código en el Jupyter Notebook de entrenamiento (modelo.ipynb) para conectarse al servidor de tracking (http://mlflow:5000), localizar el modelo registrado y descargar sus artefactos directamente al almacenamiento temporal de la máquina virtual.
 
 #### Paso 1.2: Integración de los artefactos en el entorno de desarrollo
