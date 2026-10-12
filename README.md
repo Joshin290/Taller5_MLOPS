@@ -15,7 +15,7 @@ Este repositorio contiene el desarrollo del Taller 5 de MLOps. El objetivo princ
 
 El proyecto está organizado de la siguiente forma:
 
-
+```text
 Taller5_MLOPS/
 ├── Dockerhub/
 │   ├── Dockerhub.png                     # Evidencia de la imagen alojada en la nube
@@ -33,6 +33,7 @@ Taller5_MLOPS/
 ├── docker-compose.yaml                   # Orquestación de contenedores y límites
 ├── nginx.conf                            # Configuración del balanceador de carga
 └── README.md                             # Documentación principal
+```
 
 ## Definiciones clave
 
@@ -58,22 +59,6 @@ En el entorno inicial, la API consultaba directamente el servidor de MLflow para
 
 ### Paso 1.1: Descarga del Modelo desde el Registro de MLflow
 Se añadió una nueva celda de código en el Jupyter Notebook de entrenamiento (modelo.ipynb) para conectarse al servidor de tracking (http://mlflow:5000), localizar el modelo registrado y descargar sus artefactos directamente al almacenamiento temporal de la máquina virtual.
-
-Fragmento utilizado en Jupyter para extraer el artefacto:
-
-```text
-import os
-import mlflow
-
-mlflow.set_tracking_uri("http://mlflow:5000")
-destino = "/tmp/modelo_penguins"
-os.makedirs(destino, exist_ok=True)
-
-ruta = mlflow.artifacts.download_artifacts(
-    artifact_uri="models:/Penguins_RF/7",
-    dst_path=destino
-)
-```
 
 #### Paso 1.2: Integración de los artefactos en el entorno de desarrollo
 Como se evidencia en la estructura del proyecto, los archivos descargados desde MLflow fueron trasladados al directorio de código fuente de la API, específicamente en la ruta api/model/. Esta carpeta contiene todos los metadatos y el modelo serializado necesarios para la predicción, alojados junto al script principal (main.py):   
