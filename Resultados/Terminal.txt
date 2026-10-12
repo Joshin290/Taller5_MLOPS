@@ -1,0 +1,519 @@
+
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `                                                                                                                  
+>>   -f /mnt/locust/locustfile.py `            
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 50 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+Unable to find image 'locustio/locust:latest' locally
+latest: Pulling from locustio/locust
+4f4fb700ef54: Pull complete 
+ee3e1deac57c: Pull complete 
+0cbb03135b8e: Pull complete 
+6b37362b3da7: Pull complete 
+49ae429f6151: Pull complete 
+7e7563f2ddb6: Pull complete 
+f6a5e41a78c1: Pull complete 
+b14f2539d39c: Pull complete 
+87b9a6ad8c5f: Pull complete 
+44136fa355b3: Download complete 
+d3323dd1e6a6: Download complete 
+Digest: sha256:8492fcaa6a07314551590f579219204e459d9fdc9dde060843bd2896e7a7259f
+Status: Downloaded newer image for locustio/locust:latest
+[2026-10-12 06:12:44,332] ee386e85aeca/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:12:44,355] ee386e85aeca/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:12:44,392] ee386e85aeca/INFO/locust.runners: Ramping to 50 users at a rate of 10.00 per second
+[2026-10-12 06:12:48,624] ee386e85aeca/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 50} (50 total users)
+[2026-10-12 06:14:44,107] ee386e85aeca/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:14:44,136] ee386e85aeca/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        2862     0(0.00%) |    321      28   18919     82 |   23.91        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      2862     0(0.00%) |    321      28   18919     82 |   23.91        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                               82    120    150    170    250    330   3200   9700  19000  19000  19000   2862
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                             82    120    150    170    250    330   3200   9700  19000  19000  19000   2862
+
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 100 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:18:11,518] 47b1217d4b67/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:18:11,540] 47b1217d4b67/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:18:11,584] 47b1217d4b67/INFO/locust.runners: Ramping to 100 users at a rate of 10.00 per second
+[2026-10-12 06:18:21,005] 47b1217d4b67/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 100} (100 total users)
+[2026-10-12 06:20:11,365] 47b1217d4b67/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:20:11,384] 47b1217d4b67/INFO/locust.main: Shutting down (exit code 1)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        4071 1756(43.13%) |   1110       9    5726   1000 |   33.98       14.66
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      4071 1756(43.13%) |   1110       9    5726   1000 |   33.98       14.66
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                             1000   1900   2100   2200   2500   2800   3100   3300   5100   5700   5700   4071
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                           1000   1900   2100   2200   2500   2800   3100   3300   5100   5700   5700   4071
+
+Error report
+# occurrences      Error                                                                                               
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+1756               POST /predict: HTTP 502: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.6</center>
+</body>
+</html>
+
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 200 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:23:09,057] 28701d0b1175/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:23:09,074] 28701d0b1175/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:23:09,110] 28701d0b1175/INFO/locust.runners: Ramping to 200 users at a rate of 10.00 per second
+[2026-10-12 06:23:29,005] 28701d0b1175/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 200} (200 total users)
+[2026-10-12 06:25:08,765] 28701d0b1175/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:25:08,836] 28701d0b1175/INFO/locust.main: Shutting down (exit code 1)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        4372 1684(38.52%) |   3157       9   10253   3400 |   36.54       14.07
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      4372 1684(38.52%) |   3157       9   10253   3400 |   36.54       14.07
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                             3400   5500   5800   6000   6600   7100   7600   8000   9300  10000  10000   4372
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                           3400   5500   5800   6000   6600   7100   7600   8000   9300  10000  10000   4372
+
+Error report
+# occurrences      Error                                                                                               
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+1684               POST /predict: HTTP 502: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.6</center>
+</body>
+</html>
+
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 150 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:26:45,643] 9d12a2381a1a/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:26:45,658] 9d12a2381a1a/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:26:45,699] 9d12a2381a1a/INFO/locust.runners: Ramping to 150 users at a rate of 10.00 per second
+[2026-10-12 06:27:00,319] 9d12a2381a1a/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 150} (150 total users)
+[2026-10-12 06:28:45,513] 9d12a2381a1a/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:28:45,541] 9d12a2381a1a/INFO/locust.main: Shutting down (exit code 1)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        4851 2529(52.13%) |   1755      10    8322     64 |   40.49       21.11
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      4851 2529(52.13%) |   1755      10    8322     64 |   40.49       21.11
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                               64   3300   3700   4000   4800   5200   5700   6200   7400   8300   8300   4851
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                             64   3300   3700   4000   4800   5200   5700   6200   7400   8300   8300   4851
+
+Error report
+# occurrences      Error                                                                                               
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+2529               POST /predict: HTTP 502: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.6</center>
+</body>
+</html>
+
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 50 ` 
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:30:10,083] 9ac1229d4cb6/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:30:10,091] 9ac1229d4cb6/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:30:10,171] 9ac1229d4cb6/INFO/locust.runners: Ramping to 50 users at a rate of 10.00 per second
+[2026-10-12 06:30:14,325] 9ac1229d4cb6/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 50} (50 total users)
+[2026-10-12 06:32:09,854] 9ac1229d4cb6/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:32:09,873] 9ac1229d4cb6/INFO/locust.main: Shutting down (exit code 1)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        3283     7(0.21%) |     51      27     239     47 |   27.43        0.06
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      3283     7(0.21%) |     51      27     239     47 |   27.43        0.06
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                               47     51     54     56     65     78    100    140    220    240    240   3283
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                             47     51     54     56     65     78    100    140    220    240    240   3283
+
+Error report
+# occurrences      Error                                                                                               
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+7                  POST /predict: HTTP 502: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.6</center>
+</body>
+</html>
+
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 100 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:33:32,055] c83674e9e7b7/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:33:32,077] c83674e9e7b7/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:33:32,115] c83674e9e7b7/INFO/locust.runners: Ramping to 100 users at a rate of 10.00 per second
+[2026-10-12 06:33:41,566] c83674e9e7b7/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 100} (100 total users)
+[2026-10-12 06:35:31,902] c83674e9e7b7/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:35:31,936] c83674e9e7b7/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        6424     0(0.00%) |     53      23     226     47 |   53.62        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      6424     0(0.00%) |     53      23     226     47 |   53.62        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                               47     53     58     63     80    100    130    150    200    230    230   6424
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                             47     53     58     63     80    100    130    150    200    230    230   6424
+
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 150 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:36:34,583] ac6f64a32ffe/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:36:34,598] ac6f64a32ffe/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:36:34,633] ac6f64a32ffe/INFO/locust.runners: Ramping to 150 users at a rate of 10.00 per second
+[2026-10-12 06:36:49,238] ac6f64a32ffe/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 150} (150 total users)
+[2026-10-12 06:38:34,263] ac6f64a32ffe/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:38:34,293] ac6f64a32ffe/INFO/locust.main: Shutting down (exit code 1)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                        9244     1(0.01%) |     90      26     729     60 |   77.28        0.01
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                      9244     1(0.01%) |     90      26     729     60 |   77.28        0.01
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                               60     80     98    110    180    270    400    470    640    730    730   9244
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                             60     80     98    110    180    270    400    470    640    730    730   9244
+
+Error report
+# occurrences      Error                                                                                               
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+1                  POST /predict: HTTP 502: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.31.6</center>
+</body>
+</html>
+
+------------------|---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 200 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:39:40,838] 4808ad5ed991/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:39:40,850] 4808ad5ed991/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:39:40,883] 4808ad5ed991/INFO/locust.runners: Ramping to 200 users at a rate of 10.00 per second
+[2026-10-12 06:40:00,633] 4808ad5ed991/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 200} (200 total users)
+[2026-10-12 06:41:40,697] 4808ad5ed991/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:41:40,743] 4808ad5ed991/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                       11728     0(0.00%) |    140      25    1142    100 |   97.85        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                     11728     0(0.00%) |    140      25    1142    100 |   97.85        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                              100    150    180    210    300    380    500    570    830   1000   1100  11728
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                            100    150    180    210    300    380    500    570    830   1000   1100  11728
+
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 250 `
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:43:13,445] 0811f6a665b2/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:43:13,452] 0811f6a665b2/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:43:13,488] 0811f6a665b2/INFO/locust.runners: Ramping to 250 users at a rate of 10.00 per second
+[2026-10-12 06:43:38,549] 0811f6a665b2/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 250} (250 total users)
+[2026-10-12 06:45:13,215] 0811f6a665b2/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:45:13,257] 0811f6a665b2/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                       11916     0(0.00%) |    514      26    2411    430 |   99.50        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                     11916     0(0.00%) |    514      26    2411    430 |   99.50        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                              430    700    820    900   1100   1200   1400   1500   2000   2400   2400  11916
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                            430    700    820    900   1100   1200   1400   1500   2000   2400   2400  11916
+
+PS C:\Users\Joshin290\Desktop\Taller5_MLOPS> docker run --rm -v "${PWD}:/mnt/locust" locustio/locust `
+>>   -f /mnt/locust/locustfile.py `
+>>   --headless `
+>>   --host http://10.43.97.109:8000 `
+>>   --users 220 ` 
+>>   --spawn-rate 10 `
+>>   --run-time 2m `
+>>   --csv /mnt/locust/reporte_1replica `
+>>   --only-summary
+[2026-10-12 06:54:19,747] 49c19507d053/INFO/locust.main: Starting Locust 2.46.7
+[2026-10-12 06:54:19,769] 49c19507d053/INFO/locust.main: Run time limit set to 120 seconds
+[2026-10-12 06:54:19,815] 49c19507d053/INFO/locust.runners: Ramping to 220 users at a rate of 10.00 per second
+[2026-10-12 06:54:41,702] 49c19507d053/INFO/locust.runners: All users spawned: {"UsuarioDeCarga": 220} (220 total users)
+[2026-10-12 06:56:19,490] 49c19507d053/INFO/locust.main: --run-time limit reached, shutting down
+[2026-10-12 06:56:19,531] 49c19507d053/INFO/locust.main: Shutting down (exit code 0)
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /predict                                                                       12492     0(0.00%) |    173      26    1022    130 |  104.36        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                     12492     0(0.00%) |    173      26    1022    130 |  104.36        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /predict                                                                              130    190    240    270    360    450    550    620    860    990   1000  12492
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                            130    190    240    270    360    450    550    620    860    990   1000  12492
+
+
+
+250 - 3 
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   84.73%    197.2MiB / 1GiB       19.26%    11.6MB / 8.22MB   1.19MB / 1.17MB   25
+36adc51cf07b   taller5_mlops-inference_api-2   82.60%    196.8MiB / 1GiB       19.22%    11.7MB / 8.21MB   65.5kB / 1.17MB   26
+37b7dbdb8b60   nginx_balancer                  1.99%     4.512MiB / 15.33GiB   0.03%     137MB / 135MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   86.38%    204.6MiB / 1GiB       19.98%    31.7MB / 22.3MB   1.04MB / 1.17MB   41
+25ff6b27d86b   Penguins11                      0.18%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.20%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.03%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.01%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.04%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+220 - 3
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   77.63%    197.3MiB / 1GiB       19.27%    12.4MB / 8.73MB   1.19MB / 1.17MB   25
+36adc51cf07b   taller5_mlops-inference_api-2   80.88%    197MiB / 1GiB         19.24%    12.4MB / 8.73MB   65.5kB / 1.17MB   23
+37b7dbdb8b60   nginx_balancer                  2.27%     4.352MiB / 15.33GiB   0.03%     141MB / 138MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   81.90%    203.7MiB / 1GiB       19.89%    32.4MB / 22.8MB   1.04MB / 1.17MB   26
+25ff6b27d86b   Penguins11                      0.17%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.16%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.00%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.03%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      4.71%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          4.63%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.04%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+200 -3
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   68.90%    197MiB / 1GiB         19.24%    13.4MB / 9.45MB   1.19MB / 1.17MB   20
+36adc51cf07b   taller5_mlops-inference_api-2   71.52%    196.8MiB / 1GiB       19.22%    13.4MB / 9.45MB   65.5kB / 1.17MB   19
+37b7dbdb8b60   nginx_balancer                  2.28%     3.625MiB / 15.33GiB   0.02%     146MB / 143MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   70.35%    203.6MiB / 1GiB       19.88%    33.4MB / 23.5MB   1.04MB / 1.17MB   22
+25ff6b27d86b   Penguins11                      0.16%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.20%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.03%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.01%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          3.91%     34.14MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.03%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+150 - 3
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   55.64%    197MiB / 1GiB         19.24%    14.9MB / 10.5MB   1.19MB / 1.17MB   17
+36adc51cf07b   taller5_mlops-inference_api-2   59.22%    197.1MiB / 1GiB       19.25%    14.9MB / 10.5MB   65.5kB / 1.17MB   18
+37b7dbdb8b60   nginx_balancer                  2.51%     3.414MiB / 15.33GiB   0.02%     152MB / 150MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   58.96%    203.4MiB / 1GiB       19.86%    34.7MB / 24.4MB   1.04MB / 1.17MB   12
+25ff6b27d86b   Penguins11                      0.20%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.17%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.00%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.01%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.00%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+100 - 3
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   38.56%    197MiB / 1GiB         19.24%    15.5MB / 10.9MB   1.19MB / 1.17MB   13
+36adc51cf07b   taller5_mlops-inference_api-2   36.56%    196.7MiB / 1GiB       19.21%    15.5MB / 10.9MB   65.5kB / 1.17MB   11
+37b7dbdb8b60   nginx_balancer                  1.73%     3.145MiB / 15.33GiB   0.02%     155MB / 153MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   44.53%    203.4MiB / 1GiB       19.86%    35.3MB / 24.8MB   1.04MB / 1.17MB   11
+25ff6b27d86b   Penguins11                      0.24%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.23%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.01%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.01%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.05%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+50 - 3
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+4a27f589ef11   taller5_mlops-inference_api-3   19.65%    197MiB / 1GiB         19.23%    15.8MB / 11.1MB   1.19MB / 1.17MB   10
+36adc51cf07b   taller5_mlops-inference_api-2   21.00%    196.7MiB / 1GiB       19.21%    15.8MB / 11.1MB   65.5kB / 1.17MB   10
+37b7dbdb8b60   nginx_balancer                  1.14%     3.055MiB / 15.33GiB   0.02%     157MB / 155MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   21.02%    203.4MiB / 1GiB       19.86%    35.7MB / 25MB     1.04MB / 1.17MB   10
+25ff6b27d86b   Penguins11                      0.20%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.22%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         20.95%    476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.10%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.01%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          4.89%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.07%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+200 - 1
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+37b7dbdb8b60   nginx_balancer                  1.15%     4.895MiB / 15.33GiB   0.03%     159MB / 157MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   101.75%   206.1MiB / 1GiB       20.13%    36.8MB / 25.7MB   1.04MB / 1.17MB   48
+25ff6b27d86b   Penguins11                      0.20%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.19%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.01%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.01%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          4.26%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.05%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+150 - 1
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+37b7dbdb8b60   nginx_balancer                  1.27%     4.887MiB / 15.33GiB   0.03%     161MB / 159MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   102.87%   206.3MiB / 1GiB       20.14%    38MB / 26.6MB     1.04MB / 1.17MB   46
+25ff6b27d86b   Penguins11                      0.24%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.22%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.01%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.02%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.00%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+100 - 1
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+37b7dbdb8b60   nginx_balancer                  1.22%     4.066MiB / 15.33GiB   0.03%     163MB / 160MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   101.77%   205MiB / 1GiB         20.02%    38.7MB / 27.1MB   1.04MB / 1.17MB   29
+25ff6b27d86b   Penguins11                      0.26%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.25%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.06%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.07%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.01%     192.7MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11
+
+50 - 1
+
+CONTAINER ID   NAME                            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+37b7dbdb8b60   nginx_balancer                  0.99%     3.133MiB / 15.33GiB   0.02%     164MB / 162MB     32.8kB / 16.4kB   2
+66fe306f2ccb   taller5_mlops-inference_api-1   74.43%    204.3MiB / 1GiB       19.95%    39.5MB / 27.7MB   1.04MB / 1.17MB   18
+25ff6b27d86b   Penguins11                      0.21%     192.2MiB / 15.33GiB   1.22%     4.52kB / 126B     156kB / 1.17MB    8
+4ef1ec3f8123   PenguinsAPI                     0.21%     193.3MiB / 15.33GiB   1.23%     33.8kB / 24.1kB   1.08MB / 1.17MB   9
+314cb7d9cbc9   Jupyter                         0.06%     476.9MiB / 15.33GiB   3.04%     181MB / 2.48MB    17.7MB / 846MB    36
+ff296f0bf695   MLflow                          0.04%     667.4MiB / 15.33GiB   4.25%     5.65MB / 6.45MB   11.3MB / 852kB    24
+b31db72e4276   PostgresDB                      0.00%     78.79MiB / 15.33GiB   0.50%     2.99MB / 3.99MB   42.3MB / 56.4MB   26
+c3968c75db09   DataDB                          0.00%     34.11MiB / 15.33GiB   0.22%     76.3kB / 109kB    33.3MB / 1.6MB    7
+be605b50ba0c   Minio                           0.05%     192.6MiB / 15.33GiB   1.23%     1.65MB / 15.1MB   245MB / 1.31GB    11

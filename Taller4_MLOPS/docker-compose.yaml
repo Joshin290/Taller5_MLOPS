@@ -1,0 +1,212 @@
+services:
+
+  # ==========================================================
+  # PostgreSQL para METADATOS DE MLFLOW
+  # ==========================================================
+  db:
+    image: postgres:15-alpine
+    container_name: PostgresDB
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: mlflowdb
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d mlflowdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    ports:
+      - "8030:5432"
+
+    restart: unless-stopped
+
+
+  # ==========================================================
+  # PostgreSQL para LOS DATOS DE PENGUINS
+  # ==========================================================
+  data_db:
+    image: postgres:15-alpine
+    container_name: DataDB
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: penguinsdb
+
+    ports:
+      - "8031:5432"
+
+    volumes:
+      - penguins_data:/var/lib/postgresql/data
+      - ./Data:/Data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d penguinsdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    restart: unless-stopped
+
+
+  # ==========================================================
+  # CARGADOR DEL DATASET PENGUINS
+  # ==========================================================
+  data_loader:
+    image: python:3.11-slim
+    container_name: DataLoader
+
+    depends_on:
+      data_db:
+        condition: service_healthy
+
+    volumes:
+      - ./Data:/Data
+      - ./scripts:/scripts
+
+    command: >
+      sh -c "pip install --no-cache-dir pandas sqlalchemy psycopg2-binary &&
+            python /scripts/load_data.py"
+
+    restart: "no"
+
+
+  # ==========================================================
+  # MINIO - ARTIFACT STORE DE MLFLOW
+  # ==========================================================
+  minio:
+    image: ghcr.io/coollabsio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: Minio
+
+    command: server /data --console-address ":9001"
+
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: supersecret
+
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+    volumes:
+      - minio_data:/data
+
+    restart: unless-stopped
+
+  minio-init:
+    image: ghcr.io/coollabsio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: MinioInit
+    depends_on:
+      minio:
+        condition: service_started
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set minio http://minio:9000 admin supersecret; do
+        echo 'Esperando a MinIO...';
+        sleep 2;
+      done;
+      mc mb --ignore-existing minio/mlflows3;
+      echo '======================================';
+      echo 'Bucket mlflows3 listo';
+      echo '======================================';
+      "
+    restart: "no"
+
+
+  # ==========================================================
+  # MLFLOW
+  # ==========================================================
+  mlflow:
+    build:
+      context: mlflow
+      dockerfile: Dockerfile
+    container_name: MLflow
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: supersecret
+      AWS_DEFAULT_REGION: us-east-1
+    depends_on:
+      db:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    ports:
+      - "5001:5000"
+    restart: always
+
+
+  # ==========================================================
+  # JUPYTER
+  # ==========================================================
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: Jupyter
+
+    ports:
+      - "8888:8888"
+
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./api:/home/jovyan/api
+
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: supersecret
+      AWS_DEFAULT_REGION: us-east-1
+      PASSWORD: valentasecret
+
+    depends_on:
+      - mlflow
+
+    restart: always
+
+# ==========================================================
+  # API
+  # ==========================================================
+  inference_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: PenguinsAPI
+
+    ports:
+      - "8010:8010"
+
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: supersecret
+      AWS_DEFAULT_REGION: us-east-1
+
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+
+    depends_on:
+      mlflow:
+        condition: service_started
+
+    restart: unless-stopped
+
+# ==========================================================
+# VOLUMES
+# ==========================================================
+volumes:
+  minio_data:
+    driver: local
+
+  postgres_data:
+    driver: local
+
+  penguins_data:
+    driver: local
